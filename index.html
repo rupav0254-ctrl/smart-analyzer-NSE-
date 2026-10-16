@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Analyzer NSE</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #101827;
+      color: white;
+      margin: 0;
+      padding: 20px;
+    }
+    .card {
+      background: #1e293b;
+      padding: 18px;
+      border-radius: 14px;
+      margin: 15px 0;
+    }
+    h1 { color: #55d6a0; }
+    button {
+      background: #16a36a;
+      color: white;
+      border: 0;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    .note { color: #facc15; }
+  </style>
+</head>
+<body>
+  <h1>Smart Analyzer</h1>
+  <p>भारतीय शेयर बाजार विश्लेषण</p>
+
+  <div class="card">
+    <h2>मार्केट सिग्नल</h2>
+    <p id="signal">अभी लाइव डेटा कनेक्शन नहीं जुड़ा है।</p>
+    <p class="note">यह पेज अभी परीक्षण के लिए है।</p>
+    <button onclick="showStatus()">स्थिति देखें</button>
+  </div>
+
+  <div class="card">
+    <h3>शामिल किए जाने वाले फीचर</h3>
+    <p>• NSE शेयर और F&O</p>
+    <p>• तकनीकी संकेत और सपोर्ट/रेज़िस्टेंस</p>
+    <p>• स्कैनिंग और अलर्ट</p>
+  </div>
+
+  <script>
+    function showStatus() {
+      document.getElementById("signal").textContent =
+        "वेबसाइट चल रही है; लाइव डेटा API अभी नहीं जुड़ी है।";
+    }
+  </script>
+</body>
+</html>
