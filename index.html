@@ -48,11 +48,23 @@
     <p>• स्कैनिंग और अलर्ट</p>
   </div>
 
-  <script>
-    function showStatus() {
-      document.getElementById("signal").textContent =
-        "वेबसाइट चल रही है; लाइव डेटा API अभी नहीं जुड़ी है।";
-    }
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const button = document.querySelector(
+    'button[onclick="showStatus()"]'
+  );
+  const signal = document.getElementById("signal");
+
+  if (!button || !signal) {
+    console.error("Button or signal element not found");
+    return;
+  }
+
+  button.addEventListener("click", function () {
+    signal.textContent =
+      "वेबसाइट का बटन सही काम कर रहा है। लाइव NSE डेटा API अभी नहीं जुड़ी है।";
+  });
+});
   </script>
 </body>
 </html>
