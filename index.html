@@ -3,66 +3,97 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
   <title>Smart Analyzer NSE</title>
   <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
     body {
       font-family: Arial, sans-serif;
       background: #101827;
-      color: white;
+      color: #f8fafc;
       margin: 0;
       padding: 20px;
+      line-height: 1.5;
     }
+    main { max-width: 760px; margin: 0 auto; }
+    h1 { color: #55d6a0; margin-bottom: 4px; }
+    .subtitle { color: #cbd5e1; margin-top: 0; }
     .card {
       background: #1e293b;
+      border: 1px solid #334155;
       padding: 18px;
       border-radius: 14px;
       margin: 15px 0;
     }
-    h1 { color: #55d6a0; }
     button {
       background: #16a36a;
       color: white;
       border: 0;
-      padding: 12px 18px;
+      padding: 13px 18px;
       border-radius: 8px;
       font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      min-height: 48px;
+      touch-action: manipulation;
     }
+    button:focus-visible { outline: 3px solid #facc15; outline-offset: 3px; }
+    button:disabled { opacity: .7; cursor: wait; }
+    #signal { overflow-wrap: anywhere; }
     .note { color: #facc15; }
+    .status { padding: 10px 12px; background: #0f172a; border-radius: 8px; }
+    .small { color: #cbd5e1; font-size: 14px; }
   </style>
 </head>
 <body>
+<main>
   <h1>Smart Analyzer</h1>
-  <p>भारतीय शेयर बाजार </p>
+  <p class="subtitle">भारतीय शेयर बाजार</p>
 
-  <div class="card">
-    <h2>मार्केट सिग्नल</h2>
-    <p id="signal">अभी लाइव डेटा कनेक्शन नहीं जुड़ा है।</p>
+  <section class="card" aria-labelledby="signal-title">
+    <h2 id="signal-title">मार्केट सिग्नल</h2>
+    <p id="signal" class="status" role="status" aria-live="polite">
+      अभी लाइव डेटा कनेक्शन नहीं जुड़ा है।
+    </p>
     <p class="note">यह पेज अभी परीक्षण के लिए है।</p>
-    <button type="button" onclick="showStatus()">स्थिति देखें</button>
-  </div>
+    <button id="statusButton" type="button">स्थिति देखें</button>
+  </section>
 
-  <div class="card">
+  <section class="card">
     <h3>शामिल किए जाने वाले फीचर</h3>
-    <p>• NSE शेयर और F&O</p>
+    <p>• NSE शेयर और F&amp;O</p>
     <p>• तकनीकी संकेत और सपोर्ट/रेज़िस्टेंस</p>
     <p>• स्कैनिंग और अलर्ट</p>
-  </div>
+    <p class="small">लाइव भाव दिखाने के लिए सुरक्षित सर्वर और अधिकृत डेटा API की अलग व्यवस्था आवश्यक है।</p>
+  </section>
+</main>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const button = document.querySelector(
-    'button[onclick="showStatus()"]'
-  );
+(() => {
+  "use strict";
+
+  const button = document.getElementById("statusButton");
   const signal = document.getElementById("signal");
 
   if (!button || !signal) {
-    console.error("Button or signal element not found");
+    console.error("Smart Analyzer: आवश्यक बटन या स्थिति टेक्स्ट नहीं मिला।");
     return;
   }
 
-  button.addEventListener("click", function () {
-    signal.textContent =
-      "वेबसाइट का बटन सही काम कर रहा है। लाइव NSE डेटा API अभी नहीं जुड़ी है।";
-  });
-});
-()
+  function showStatus() {
+    try {
+      signal.textContent =
+        "वेबसाइट का बटन काम कर रहा है। लाइव डेटा API अभी कनेक्ट नहीं है।";
+      signal.dataset.state = "button-tested";
+    } catch (error) {
+      signal.textContent = "स्थिति दिखाने में त्रुटि हुई। पेज को फिर खोलकर देखें।";
+      console.error("Smart Analyzer showStatus error:", error);
+    }
+  }
+
+  button.addEventListener("click", showStatus);
+})();
+</script>
+</body>
+</html>
